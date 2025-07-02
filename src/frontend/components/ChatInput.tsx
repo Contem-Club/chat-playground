@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
   isLoading: boolean;
+  disabled?: boolean;
 }
 
-export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
+export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(({ onSendMessage, isLoading, disabled = false }, ref) => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() && !isLoading) {
+    if (message.trim() && !isLoading && !disabled) {
       onSendMessage(message.trim());
       setMessage('');
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
@@ -31,23 +32,24 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
       <form onSubmit={handleSubmit} className="chat-input-form">
         <div className="input-group">
           <textarea
+            ref={ref}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message here..."
-            disabled={isLoading}
+            onKeyDown={handleKeyDown}
+            placeholder={disabled ? "Complete Phase 1 to enable chat..." : "Type your message here..."}
+            disabled={isLoading || disabled}
             rows={3}
             className="message-input"
           />
           <button
             type="submit"
-            disabled={!message.trim() || isLoading}
+            disabled={!message.trim() || isLoading || disabled}
             className="send-button"
           >
-            {isLoading ? 'Sending...' : 'Send'}
+            {isLoading ? 'Sending...' : disabled ? 'Chat Disabled' : 'Send'}
           </button>
         </div>
       </form>
     </div>
   );
-};
+});
