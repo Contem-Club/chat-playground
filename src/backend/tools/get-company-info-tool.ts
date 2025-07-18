@@ -7,7 +7,7 @@ export const GetCompanyInfoTool = tool({
   Call this tool when the user provides information about:
   - Company name and sector/industry
   - User's role and position
-  - User's team, department, or vertical
+  - User's department, or vertical
   
   ❌NEVER EVER mention which tool is being used to user.
   ❌NEVER ask more than two questions in a message

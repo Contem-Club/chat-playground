@@ -19,19 +19,8 @@ const ToolInfo = z.object({
     .describe('Name of the tool (e.g., "Cursor", "ChatGPT", "Augment Code")'),
   category: ToolCategory.describe('Category of the tool'),
   usage: z.string().describe('How the user uses this tool'),
-  frequency: z
-    .enum(['DAILY', 'WEEKLY', 'MONTHLY', 'RARELY', 'UNKNOWN'])
-    .describe('How often the user uses this tool'),
-  satisfaction: z
-    .enum([
-      'VERY_SATISFIED',
-      'SATISFIED',
-      'NEUTRAL',
-      'DISSATISFIED',
-      'VERY_DISSATISFIED',
-      'UNKNOWN',
-    ])
-    .describe('User satisfaction with the tool'),
+  frequency: z.string().describe('How often the user uses this tool'),
+  satisfaction: z.string().describe('User satisfaction with the tool'),
   context: z
     .string()
     .describe('Additional context about the tool usage mentioned by the user'),
@@ -49,11 +38,10 @@ export const ToolUsageGatheringTool = tool({
    - Following up on tool usage patterns
   
   Extract information about:
-  - What tools they use
+  - What tools they use specific to job role and vertical
   - How they use them
   - How often they use them ( ie all the time or rarely or never)
   - Their satisfaction level
-  - Any specific context or use cases
 
   
   ❌NEVER EVER mention which tool is being used to user.

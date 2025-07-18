@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { tool } from 'ai'
 import {
-  ConfirmUsageClaimsTool,
   ConversationCompletionTool,
   GetCompanyInfoTool,
   ToolUsageGatheringTool,
@@ -22,8 +21,10 @@ export class PromptService implements IPromptService {
   private readonly systemPromptWithoutContext: string
   private readonly defaultPrompt: string
   private readonly defaultPromptWithContext: string
+  //private readonly newPromt: string
 
   constructor() {
+    //this. = ``;
     this.systemPromptWithContext = `You are a helpful AI assistant. Use the following context to provide accurate and relevant responses.
 
 
@@ -47,6 +48,7 @@ GetCompanyInfoTool → ToolUsageGatheringTool → others
 - Use ONLY ONE tool per response
 -Don't let questions in message be longer than 40 words.
 -Try sticking to topic and following up till you get some info on it
+✅ Continue asking questions with your own discretion to maximise info.
 
 🔄 GREETING HANDLING:
 When user sends introductory messages like "Hi", "Hello", "Hey", or similar greetings, 
@@ -62,10 +64,10 @@ ALWAYS use GetCompanyInfoTool to start gathering company information while respo
     this.defaultPromptWithContext =
       this.defaultPrompt +
       `
-Use the following contexts about OTHER employees when using ConfirmUsageClaimsTool:
+Use the following contexts about OTHER employees when using GetUnitsDepartmentsUsingAITool:
 {contexts}
 
-IMPORTANT: Only use ConfirmUsageClaimsTool when you have contexts about OTHER employees' tool usage to reference. Do not use it for the current user's own responses.
+
 `
 
     this.systemPromptWithoutContext = this.defaultPrompt

@@ -4,7 +4,6 @@ import {
   ConversationCompletionTool,
   ToolUsageGatheringTool,
   GetCompanyInfoTool,
-  ConfirmUsageClaimsTool,
   GetImplementedAIUseCasesTool,
   GetUnitsDepartmentsUsingAITool,
   GetDataAwarenessTool,
@@ -31,29 +30,29 @@ export class AIChatService implements IAIChatService {
     systemPrompt: string,
   ) {
     try {
-      // Force tool usage by adding a parameter
+      console.log('Starting streaming response generation...')
+
       const result = streamText({
         model: this.googleAI.model,
         system: systemPrompt,
         messages,
         tools: {
           conversationCompletion: ConversationCompletionTool,
-          toolUsageGathering: ToolUsageGatheringTool, // Put first
+          toolUsageGathering: ToolUsageGatheringTool,
           getCompanyInfo: GetCompanyInfoTool,
-          confirmUsageClaims: ConfirmUsageClaimsTool,
           getImplementedAIUseCases: GetImplementedAIUseCasesTool,
           getUnitsDepartmentsUsingAI: GetUnitsDepartmentsUsingAITool,
           getDataAwareness: GetDataAwarenessTool,
           getStrategyAndPlanning: GetStrategyAndPlanningTool,
         },
         maxSteps: this.googleAI.config.maxSteps,
-        // Add tool_choice to force tool usage
-        toolChoice: 'auto', //auto for ai to decide, required for compulsory tool usage
+        toolChoice: 'auto',
       })
 
+      console.log('Stream created successfully', result)
       return result
     } catch (error: unknown) {
-      console.error('Error generating streaming response:', error)
+      console.error('CRITICAL ERROR in generateStreamingResponse:', error)
       throw new Error('Failed to generate streaming response')
     }
   }

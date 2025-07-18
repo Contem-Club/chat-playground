@@ -19,9 +19,9 @@ export function getAIConfig(): AIConfig {
 
   return {
     apiKey,
-    model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-1.5-pro',
     maxSteps: parseInt(process.env.AI_MAX_STEPS || '5', 10),
-    thinkingBudget: parseInt(process.env.AI_THINKING_BUDGET || '2048', 10),
+    thinkingBudget: parseInt(process.env.AI_THINKING_BUDGET || '1024', 10),
   }
 }
 

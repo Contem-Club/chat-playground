@@ -36,7 +36,7 @@ export const GetStrategyAndPlanningTool = tool({
   
   ❌NEVER EVER mention which tool is being used to user.
   ❌NEVER ask more than two questions in a message
-  ✅Generally react to user's reply in less than 10 words, then ask further questions and ❌ Avoid writing messages longer than 50 words
+  ✅Generally react to user's reply with natural responses like "Hmm", "Fair", "I see", "Makes sense", then ask further questions and ❌ Avoid writing messages longer than 50 words
   ❌Avoid lengthening questions in a single message using 'and'. 
   ✅ALWAYS Put each sentence on a new line for better readability
   📌Keeping conversation friendly, but professional is essential`,

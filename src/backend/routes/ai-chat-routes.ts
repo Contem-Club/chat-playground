@@ -84,21 +84,47 @@ export class AIChatRoutes {
         return
       }
 
-      // Convert messages to CoreMessage format
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const coreMessages: CoreMessage[] = messages.map((msg: any) => ({
         role: msg.role,
         content: msg.content,
       }))
 
-      // Generate streaming response
+      console.log('About to generate streaming response...')
       const result = await this.aiChatService.generateStreamingResponse(
         coreMessages,
         systemPrompt,
       )
 
-      // Stream the response using the AI SDK's built-in method
-      result.pipeDataStreamToResponse(res)
+      console.log('Got result, about to pipe to response...')
+
+      // Set headers for streaming
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+      res.setHeader('Transfer-Encoding', 'chunked')
+
+      // Manual streaming instead of pipeDataStreamToResponse
+      try {
+        console.log('Starting to iterate through textStream...')
+        let chunkCount = 0
+        for await (const chunk of result.textStream) {
+          chunkCount++
+          console.log(`Chunk ${chunkCount}:`, chunk)
+          res.write(`0:${chunk}\n`)
+        }
+        res.end()
+        console.log(`Stream completed successfully with ${chunkCount} chunks`)
+      } catch (streamError) {
+        console.error('Error during streaming:', streamError)
+        console.error(
+          'Error details:',
+          streamError instanceof Error
+            ? streamError.message
+            : String(streamError),
+          streamError instanceof Error ? streamError.stack : undefined,
+        )
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Streaming failed' })
+        }
+      }
     } catch (error) {
       console.error('Error in streaming chat:', error)
       if (!res.headersSent) {

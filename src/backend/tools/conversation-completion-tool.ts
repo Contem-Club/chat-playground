@@ -9,7 +9,8 @@ export const ConversationCompletionTool = tool({
   - The conversation has reached a natural conclusion
   - The user's question has been fully answered and they seem satisfied
   - The user indicates they have no more questions
-  
+  Avoid:
+  -Don't call if user says, "I've already said what I had to"
   Examples of completion indicators:
   - "Thanks, that's all I needed"
   - "Perfect, goodbye"

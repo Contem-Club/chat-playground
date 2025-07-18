@@ -100,7 +100,7 @@ export const ChatPlayground: React.FC = () => {
 
     try {
       setIsLoading(true);
-
+      debugger;
       // Add user message to chat
       const userMessage: ChatMessage = {
         id: uuidv4(),
@@ -132,7 +132,7 @@ export const ChatPlayground: React.FC = () => {
       }
 
       // Handle streaming response
-      const reader = response.body?.getReader();
+      const reader = await response.body?.getReader();
       if (!reader) {
         throw new Error('No response body');
       }
@@ -159,9 +159,12 @@ export const ChatPlayground: React.FC = () => {
         buffer = lines.pop() || '';
 
         for (const line of lines) {
+          if (line.trim() === '') continue; // Skip empty lines
+          
           if (line.startsWith('0:')) {
             // Parse the streaming data
             const data = line.slice(2);
+            console.log('Frontend received chunk:', data);
             assistantMessage.content += data;
 
             // Update the assistant message in real-time
@@ -176,6 +179,7 @@ export const ChatPlayground: React.FC = () => {
         }
       }
 
+      console.log('Frontend: Complete AI response:', assistantMessage.content);
       setIsLoading(false);
 
     } catch (error) {
@@ -287,3 +291,11 @@ export const ChatPlayground: React.FC = () => {
     </div>
   );
 };
+
+
+
+
+
+
+
+
