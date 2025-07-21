@@ -39,7 +39,7 @@ export const ToolUsageGatheringTool = tool({
   
   Extract information about:
   - What tools they use specific to job role and vertical
-  - How they use them
+  - How they use them, whether as standalone or integrated into other softwares. 
   - How often they use them ( ie all the time or rarely or never)
   - Their satisfaction level
 
