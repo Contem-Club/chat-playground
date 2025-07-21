@@ -15,8 +15,11 @@ export const GetCompanyInfoTool = tool({
   ❌ Avoid writing messages longer than 50 words
   ❌Avoid lengthening questions in a single message using 'and'. 
   ✅ALWAYS Put each sentence on a new line for better readability
-  📌Keeping conversation friendly, but professional is essential`,
-
+  📌Keeping conversation friendly, but professional is essential
+  
+  
+  `,
+  
   parameters: z.object({
     companyName: z.string().optional().describe('Name of the company'),
     companySector: z
@@ -27,7 +30,7 @@ export const GetCompanyInfoTool = tool({
     userTeam: z
       .string()
       .optional()
-      .describe("User's team, department, or vertical"),
+      .describe("User's department, or vertical"),
     extractedFromMessage: z
       .string()
       .describe('The user message this information was extracted from'),

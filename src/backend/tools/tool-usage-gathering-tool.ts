@@ -43,7 +43,7 @@ export const ToolUsageGatheringTool = tool({
   - How often they use them ( ie all the time or rarely or never)
   - Their satisfaction level
 
-  
+   ❌NEVER print debug code, function calls, or technical syntax
   ❌NEVER EVER mention which tool is being used to user.
   ❌NEVER ask more than two questions in a message
   ✅Generally react to user's reply in 10 words, then ask further questions and ❌ Avoid writing messages longer than 50 words

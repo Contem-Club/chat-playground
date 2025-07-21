@@ -28,7 +28,7 @@ export const GetStrategyAndPlanningTool = tool({
   
   Look for mentions of:
   - AI planning and roadmap
-  - Performance metrics and ROI measurements
+  - Performance metrics 
   - Future outlook and plans
   - Challenges and risks
   - Leadership support and involvement
