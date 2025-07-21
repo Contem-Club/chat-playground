@@ -19,6 +19,11 @@ const ToolInfo = z.object({
     .describe('Name of the tool (e.g., "Cursor", "ChatGPT", "Augment Code")'),
   category: ToolCategory.describe('Category of the tool'),
   usage: z.string().describe('How the user uses this tool'),
+  standalone: z
+    .string()
+    .describe(
+      'Whether the tool is used standalone or integrated into other softwares',
+    ),
   frequency: z.string().describe('How often the user uses this tool'),
   satisfaction: z.string().describe('User satisfaction with the tool'),
   context: z
@@ -35,11 +40,10 @@ export const ToolUsageGatheringTool = tool({
   - IDEs: IntelliJ, Eclipse, Xcode, etc.
   - Development tools: Augment Code, GitHub, GitLab, Docker, etc.
   
-   - Following up on tool usage patterns
-  
   Extract information about:
   - What tools they use specific to job role and vertical
-  - How they use them, whether as standalone or integrated into other softwares. 
+  - How they use them
+  - Whether tool is used as standalone or integrated into other softwares
   - How often they use them ( ie all the time or rarely or never)
   - Their satisfaction level
 
